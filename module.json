@@ -8,7 +8,10 @@
   "compatibleCoreVersion": "12",
   "systems": ["dnd5e"],
   "scripts": [],
-  "esmodules": ["custom-tools.js"],
+  "esmodules": [
+    "custom-tools.js",
+    "custom-tool-proficiencies.js"
+  ],
   "styles": [],
   "packs": [],
   "url": "https://github.com/jrleavey/Custom-Tools-Forge",
