@@ -1,0 +1,17 @@
+{
+  "name": "custom-tools-forge",
+  "title": "OTOV Custom Tools",
+  "description": "Adds custom OTOV-specific tools to the DND5E system in Foundry VTT.",
+  "version": "1.0.0",
+  "author": "jrleavey",
+  "minimumCoreVersion": "10",
+  "compatibleCoreVersion": "12",
+  "systems": ["dnd5e"],
+  "scripts": [],
+  "esmodules": ["custom-tools.js"],
+  "styles": [],
+  "packs": [],
+  "url": "https://github.com/jrleavey/Custom-Tools-Forge",
+  "manifest": "https://raw.githubusercontent.com/jrleavey/Custom-Tools-Forge/main/module.json",
+  "download": "https://github.com/jrleavey/Custom-Tools-Forge/archive/refs/heads/main.zip"
+}
