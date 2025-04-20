@@ -1,7 +1,7 @@
 Hooks.once("init", () => {
-  console.log("[OTOV] 🧰 Registering OTOV tool proficiencies");
+  console.log("[OTOV] 🧠 Initializing OTOV tool proficiencies...");
 
-  const labels = {
+  const otovProficiencies = {
     animalcarekit: "Animal Care Kit",
     brewerssupplies: "Brewer’s Supplies",
     calligrapherssupplies: "Calligrapher’s Supplies",
@@ -14,7 +14,7 @@ Hooks.once("init", () => {
     farmerstools: "Farmer’s Tools",
     fishingtackle: "Fishing Tackle",
     forensickit: "Forensic Kit",
-    gunsmithstools: "Gunsmith’s Tools",
+    gunsmithtools: "Gunsmith’s Tools",
     hackingtools: "Hacking Tools",
     herbalismkit: "Herbalism Kit",
     jewelerstools: "Jeweler’s Tools",
@@ -35,11 +35,13 @@ Hooks.once("init", () => {
     trapperstools: "Trapper’s Tools"
   };
 
-  for (const [toolId, label] of Object.entries(labels)) {
-    CONFIG.DND5E.toolProficiencies[toolId] = {
+  for (const [id, label] of Object.entries(otovProficiencies)) {
+    CONFIG.DND5E.toolProficiencies[id] = {
       label,
-      tools: [toolId]
+      tools: [id]
     };
-    console.log(`[OTOV] ✅ Registered tool proficiency: ${label}`);
+    console.log(`[OTOV] ✅ Registered tool proficiency: ${label} (${id})`);
   }
+
+  console.log("[OTOV] ✅ All OTOV tool proficiencies registered.");
 });
