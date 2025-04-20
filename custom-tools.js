@@ -1,71 +1,44 @@
 Hooks.once("init", () => {
-  CONFIG.DND5E.tools.animalcarekit = {
-    ability: "wis",
-    id: ""
+  CONFIG.DND5E.toolTypes.otov = "OTOV Tools";
+
+  const otovTools = {
+    animalcarekit: "wis",
+    brewerssupplies: "wis",
+    calligraphersupplies: "int",
+    cartographerstools: "int",
+    chemistrykit: "int",
+    climbinggear: "str",
+    cookingkit: "wis",
+    disguisekit: "cha",
+    explosiveskit: "int",
+    farmerstools: "wis",
+    fishingtackle: "wis",
+    forensickit: "int",
+    gunsmithtools: "dex",
+    hackingtools: "int",
+    herbalismkit: "wis",
+    jewelersTools: "dex",
+    leatherworkingtools: "dex",
+    mechanicstools: "int",
+    minerstools: "str",
+    navigatorsTools: "int",
+    paintersTools: "dex",
+    poisonerskit: "int",
+    potterstools: "int",
+    radiationdetector: "int",
+    scrungekit: "dex",
+    sewingkit: "dex",
+    signalbooster: "int",
+    smithstools: "str",
+    surveyorstools: "wis",
+    tinkerstools: "int",
+    trapperstools: "wis"
   };
 
-  CONFIG.DND5E.tools.chemistrykit = {
-    ability: "int",
-    id: ""
-  };
-
-  CONFIG.DND5E.tools.climbinggear = {
-    ability: "str",
-    id: ""
-  };
-
-  CONFIG.DND5E.tools.explosiveskit = {
-    ability: "int",
-    id: ""
-  };
-
-  CONFIG.DND5E.tools.farmerstools = {
-    ability: "wis",
-    id: ""
-  };
-
-  CONFIG.DND5E.tools.forensickit = {
-    ability: "int",
-    id: ""
-  };
-
-  CONFIG.DND5E.tools.gunsmithtools = {
-    ability: "dex",
-    id: ""
-  };
-
-  CONFIG.DND5E.tools.hackingtools = {
-    ability: "int",
-    id: ""
-  };
-
-  CONFIG.DND5E.tools.mechanicstools = {
-    ability: "int",
-    id: ""
-  };
-
-  CONFIG.DND5E.tools.radiationdetector = {
-    ability: "int",
-    id: ""
-  };
-
-  CONFIG.DND5E.tools.scrungekit = {
-    ability: "dex",
-    id: ""
-  };
-
-  CONFIG.DND5E.tools.signalbooster = {
-    ability: "int",
-    id: ""
-  };
-
-  CONFIG.DND5E.tools.surveyorstools = {
-    ability: "wis",
-    id: ""
-  };
-
-  CONFIG.DND5E.tools.trapperstools = {
-    ability: "wis",
-    id: ""
-  };
+  for (const [toolId, ability] of Object.entries(otovTools)) {
+    CONFIG.DND5E.tools[toolId] = {
+      ability,
+      type: "otov"
+    };
+  }
 });
