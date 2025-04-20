@@ -1,51 +1,20 @@
 Hooks.once("init", () => {
-  console.log("[OTOV] 🔧 Registering OTOV tools to CONFIG.DND5E.tools");
+  console.log("[OTOV] Registering custom tools under 'Other' category.");
 
-  const otovTools = {
-    animalcarekit: "wis",
-    brewersupplies: "wis",
-    calligraphersupplies: "int",
-    cartographerstools: "int",
-    chemistrykit: "int",
-    climbinggear: "str",
-    cookingkit: "wis",
-    disguisekit: "cha",
-    explosiveskit: "int",
-    farmerstools: "wis",
-    fishingtackle: "wis",
-    forensickit: "int",
-    gunsmithtools: "dex",
-    hackingtools: "int",
-    herbalismkit: "wis",
-    jewelerstools: "dex",
-    leatherworkingtools: "dex",
-    mechanicstools: "int",
-    minerstools: "str",
-    navigatorstools: "int",
-    painterstools: "dex",
-    poisonerskit: "int",
-    potterstools: "int",
-    radiationdetector: "int",
-    scrungekit: "dex",
-    sewingkit: "dex",
-    signalbooster: "int",
-    smithstools: "str",
-    surveyorstools: "wis",
-    tinkerstools: "int",
-    trapperstools: "wis"
-  };
+  CONFIG.DND5E.tools.animalcarekit = { ability: "wis" };
+  CONFIG.DND5E.tools.chemistrykit = { ability: "int" };
+  CONFIG.DND5E.tools.climbinggear = { ability: "str" };
+  CONFIG.DND5E.tools.explosiveskit = { ability: "int" };
+  CONFIG.DND5E.tools.farmerstools = { ability: "wis" };
+  CONFIG.DND5E.tools.forensickit = { ability: "int" };
+  CONFIG.DND5E.tools.gunsmithtools = { ability: "dex" };
+  CONFIG.DND5E.tools.hackingtools = { ability: "int" };
+  CONFIG.DND5E.tools.mechanicstools = { ability: "int" };
+  CONFIG.DND5E.tools.radiationdetector = { ability: "int" };
+  CONFIG.DND5E.tools.scrungekit = { ability: "dex" };
+  CONFIG.DND5E.tools.signalbooster = { ability: "int" };
+  CONFIG.DND5E.tools.surveyorstools = { ability: "wis" };
+  CONFIG.DND5E.tools.trapperstools = { ability: "wis" };
 
-  for (const [toolId, ability] of Object.entries(otovTools)) {
-    if (!CONFIG.DND5E.tools[toolId]) {
-      CONFIG.DND5E.tools[toolId] = {
-        ability,
-        // type omitted to ensure they fall into the "Other" category
-      };
-      console.log(`[OTOV] ✅ Registered: ${toolId} → ${ability}`);
-    } else {
-      console.warn(`[OTOV] ⚠️ Tool ID '${toolId}' already exists — skipping.`);
-    }
-  }
-
-  console.log(`[OTOV] 🧰 Total tools registered: ${Object.keys(otovTools).length}`);
+  console.log("[OTOV] ✅ Custom tools registered.");
 });
