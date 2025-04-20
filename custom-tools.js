@@ -39,29 +39,28 @@ Hooks.once("init", () => {
     CONFIG.DND5E.tools[toolId] = {
       ability,
       type: "otov",
-      identifier: `otov.tools.${toolId}` // Ensure it's a plain string
+      identifier: `dnd5e.tools.${toolId}`
     };
-    console.log(`[OTOV] Registered tool: ${toolId} (ability: ${ability})`);
+    console.log(`[OTOV] Registered tool: ${toolId} (${ability})`);
   }
 });
 
 Hooks.once("ready", () => {
-  for (const [key, tool] of Object.entries(CONFIG.DND5E.tools)) {
-    if (!tool || typeof tool !== "object") {
-      console.warn(`[OTOV] Tool entry for '${key}' is invalid. Fixing.`);
-      CONFIG.DND5E.tools[key] = {
-        ability: "int",
-        type: "otov",
-        identifier: `otov.tools.${key}`
-      };
+  // ONLY iterate OTOV tools
+  const otovToolIds = Object.keys(CONFIG.DND5E.tools).filter(key => key.includes("_")); // safe filter
+
+  for (const toolId of otovToolIds) {
+    const tool = CONFIG.DND5E.tools[toolId];
+    if (typeof tool !== "object" || tool === null) {
+      console.error(`[OTOV] TOOL ERROR: '${toolId}' is not an object. Value:`, tool);
       continue;
     }
 
     if (typeof tool.identifier !== "string") {
-      console.warn(`[OTOV] Tool '${key}' missing valid string identifier. Fixing.`);
-      tool.identifier = `otov.tools.${key}`;
+      console.warn(`[OTOV] Tool '${toolId}' missing valid string identifier. Fixing.`);
+      tool.identifier = `dnd5e.tools.${toolId}`;
     }
   }
 
-  console.log("[OTOV] ✅ Tool definitions validated.");
+  console.log("[OTOV] ✅ Custom tool integrity check complete.");
 });
