@@ -1,7 +1,7 @@
 Hooks.once("init", () => {
-  console.log("[OTOV] 📚 Registering OTOV tool proficiencies in CONFIG.DND5E.toolProficiencies");
+  console.log("[OTOV] 🖋️ Prefixing OTOV tool labels");
 
-  const toolLabels = {
+  const otovLabels = {
     animalcarekit: "Animal Care Kit",
     brewerssupplies: "Brewer’s Supplies",
     calligrapherssupplies: "Calligrapher’s Supplies",
@@ -35,20 +35,12 @@ Hooks.once("init", () => {
     trapperstools: "Trapper’s Tools"
   };
 
-  let profCount = 0;
-
-  for (const [id, label] of Object.entries(toolLabels)) {
-    if (!CONFIG.DND5E.toolProficiencies[id]) {
-      CONFIG.DND5E.toolProficiencies[id] = {
-        label,
-        tools: [id]
-      };
-      profCount++;
-      console.log(`[OTOV] ✅ Proficiency registered: ${label} (${id})`);
-    } else {
-      console.warn(`[OTOV] ⚠️ Proficiency '${id}' already exists — skipping.`);
+  for (const [id, label] of Object.entries(otovLabels)) {
+    if (CONFIG.DND5E.toolProficiencies[id]) {
+      CONFIG.DND5E.toolProficiencies[id].label = `OTOV - ${label}`;
+      console.log(`[OTOV] ✏️ Renamed tool proficiency label for '${id}' to 'OTOV - ${label}'`);
     }
   }
 
-  console.log(`[OTOV] ✅ ${profCount} OTOV tool proficiencies registered.`);
+  console.log("[OTOV] ✅ Tool label update complete.");
 });
