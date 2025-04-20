@@ -38,15 +38,16 @@ Hooks.once("init", () => {
     trappers_tools: "wis"
   };
 
-  for (const [toolId, ability] of Object.entries(otovTools)) {
-    const identifier = `dnd5e.tools.${toolId}`; // ✅ string identifier to prevent crash
-    CONFIG.DND5E.tools[toolId] = {
-      ability,
-      type: "otov",
-      identifier
-    };
-    console.log(`[OTOV] ✅ Registered tool: '${toolId}' → Ability: ${ability}, Type: 'otov', Identifier: '${identifier}'`);
-  }
+for (const [toolId, ability] of Object.entries(otovTools)) {
+  const identifier = `dnd5e.tools.${toolId}`; // ✅ string identifier to prevent crash
+  CONFIG.DND5E.tools[toolId] = {
+    ability,
+    type: "otov",
+    identifier
+  };
+  console.log(`[OTOV] ✅ Registered tool: '${toolId}' → Ability: ${ability}, Type: 'otov', Identifier: '${identifier}'`);
+}
+
 
   console.log(`[OTOV] 🧰 Total custom tools registered: ${Object.keys(otovTools).length}`);
 });
