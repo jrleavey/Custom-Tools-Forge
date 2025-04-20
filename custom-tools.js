@@ -39,26 +39,26 @@ Hooks.once("init", () => {
     CONFIG.DND5E.tools[toolId] = {
       ability,
       type: "otov",
-      identifier: `dnd5e.tools.${toolId}`
+      identifier: null // ✅ FIXED: avoids getBaseItemUUID crash in DND5E v4.3.x+
     };
     console.log(`[OTOV] Registered tool: ${toolId} (${ability})`);
   }
 });
 
 Hooks.once("ready", () => {
-  // ONLY iterate OTOV tools
-  const otovToolIds = Object.keys(CONFIG.DND5E.tools).filter(key => key.includes("_")); // safe filter
+  const otovToolIds = Object.keys(CONFIG.DND5E.tools).filter(key => key.includes("_")); // conservative match
 
   for (const toolId of otovToolIds) {
     const tool = CONFIG.DND5E.tools[toolId];
+
     if (typeof tool !== "object" || tool === null) {
-      console.error(`[OTOV] TOOL ERROR: '${toolId}' is not an object. Value:`, tool);
+      console.error(`[OTOV] ❌ TOOL ERROR: '${toolId}' is not an object. Value:`, tool);
       continue;
     }
 
-    if (typeof tool.identifier !== "string") {
-      console.warn(`[OTOV] Tool '${toolId}' missing valid string identifier. Fixing.`);
-      tool.identifier = `dnd5e.tools.${toolId}`;
+    if (typeof tool.identifier !== "string" && tool.identifier !== null) {
+      console.warn(`[OTOV] ⚠️ Tool '${toolId}' has invalid identifier. Resetting to null.`);
+      tool.identifier = null;
     }
   }
 
