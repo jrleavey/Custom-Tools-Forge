@@ -1,15 +1,16 @@
 {
   "name": "custom-tools-forge",
   "title": "OTOV Custom Tools",
-  "description": "Adds OTOV-specific tool proficiencies to the DND5E system in Foundry VTT. Compatible with v4.3.x and above.",
-  "version": "1.0.1",
+  "description": "Adds custom OTOV-specific tools to the DND5E system in Foundry VTT.",
+  "version": "1.0.0",
   "author": "jrleavey",
   "minimumCoreVersion": "10",
   "compatibleCoreVersion": "12",
   "systems": ["dnd5e"],
   "scripts": [],
   "esmodules": [
-    "custom-tools-proficiencies.js"
+    "custom-tools.js",
+    "custom-tool-proficiencies.js"
   ],
   "styles": [],
   "packs": [],
