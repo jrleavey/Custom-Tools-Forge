@@ -1,6 +1,4 @@
 Hooks.once("init", () => {
-  console.log("[OTOV] Initializing OTOV tool definitions...");
-
   CONFIG.DND5E.toolTypes.otov = "OTOV Tools";
 
   const otovTools = {
@@ -41,46 +39,29 @@ Hooks.once("init", () => {
     CONFIG.DND5E.tools[toolId] = {
       ability,
       type: "otov",
-      identifier: `dnd5e.tools.${toolId}`
+      identifier: `otov.tools.${toolId}` // Ensure it's a plain string
     };
-    console.log(`[OTOV] ✅ Registered: ${toolId} → ${ability}`);
+    console.log(`[OTOV] Registered tool: ${toolId} (ability: ${ability})`);
   }
-
-  console.log("[OTOV] Init complete.");
 });
 
 Hooks.once("ready", () => {
-  console.log("[OTOV] 🔍 Beginning runtime validation of all tool entries...");
-
-  let fixed = 0;
-  let replaced = 0;
-
   for (const [key, tool] of Object.entries(CONFIG.DND5E.tools)) {
-    const label = `[OTOV VALIDATION] Tool key: '${key}' →`;
-
-    if (typeof tool !== "object" || tool === null) {
-      console.error(`${label} ❌ INVALID TYPE: Expected object, got:`, tool);
+    if (!tool || typeof tool !== "object") {
+      console.warn(`[OTOV] Tool entry for '${key}' is invalid. Fixing.`);
       CONFIG.DND5E.tools[key] = {
         ability: "int",
         type: "otov",
-        identifier: `dnd5e.tools.${key}`
+        identifier: `otov.tools.${key}`
       };
-      console.warn(`${label} 🔧 Replaced with fallback OTOV tool definition.`);
-      replaced++;
       continue;
     }
 
     if (typeof tool.identifier !== "string") {
-      console.warn(`${label} ⚠️ Missing or bad identifier:`, tool.identifier);
-      CONFIG.DND5E.tools[key].identifier = `dnd5e.tools.${key}`;
-      console.log(`${label} 🔧 Identifier patched to: dnd5e.tools.${key}`);
-      fixed++;
-    }
-
-    if (!tool.identifier.startsWith("dnd5e.tools.")) {
-      console.warn(`${label} ⚠️ Identifier format unexpected: '${tool.identifier}'`);
+      console.warn(`[OTOV] Tool '${key}' missing valid string identifier. Fixing.`);
+      tool.identifier = `otov.tools.${key}`;
     }
   }
 
-  console.log(`[OTOV] ✅ Tool validation complete. ${fixed} identifiers fixed, ${replaced} entries replaced.`);
+  console.log("[OTOV] ✅ Tool definitions validated.");
 });
