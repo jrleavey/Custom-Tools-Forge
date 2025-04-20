@@ -39,7 +39,17 @@ Hooks.once("init", () => {
     CONFIG.DND5E.tools[toolId] = {
       ability,
       type: "otov",
-      identifier: `dnd5e.tools.${toolId}`
+      identifier: `dnd5e.tools.${toolId}` // Tidy5e-safe
     };
+  }
+});
+
+Hooks.once("ready", () => {
+  // Patch anything missing identifier to prevent crashes
+  for (const [key, tool] of Object.entries(CONFIG.DND5E.tools)) {
+    if (typeof tool?.identifier !== "string") {
+      console.warn(`[OTOV Tools] Auto-fixing missing identifier for: ${key}`);
+      tool.identifier = `dnd5e.tools.${key}`;
+    }
   }
 });
