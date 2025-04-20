@@ -1,6 +1,6 @@
 Hooks.once("init", () => {
   console.log("[OTOV] 🛠️ Initializing OTOV Custom Tools...");
-  
+
   CONFIG.DND5E.toolTypes.otov = "OTOV Tools";
   console.log("[OTOV] ➕ Added custom tool type 'otov' to CONFIG.DND5E.toolTypes");
 
@@ -39,12 +39,13 @@ Hooks.once("init", () => {
   };
 
   for (const [toolId, ability] of Object.entries(otovTools)) {
+    const identifier = `dnd5e.tools.${toolId}`; // ✅ string identifier to prevent crash
     CONFIG.DND5E.tools[toolId] = {
       ability,
       type: "otov",
-      identifier: null // ✅ Intentionally null to avoid getBaseItemUUID crash
+      identifier
     };
-    console.log(`[OTOV] ✅ Registered tool: '${toolId}' → Ability: ${ability}, Type: 'otov', Identifier: null`);
+    console.log(`[OTOV] ✅ Registered tool: '${toolId}' → Ability: ${ability}, Type: 'otov', Identifier: '${identifier}'`);
   }
 
   console.log(`[OTOV] 🧰 Total custom tools registered: ${Object.keys(otovTools).length}`);
@@ -54,7 +55,6 @@ Hooks.once("ready", () => {
   console.log("[OTOV] 🔍 Validating tool definitions at Foundry ready hook...");
 
   const otovToolIds = Object.keys(CONFIG.DND5E.tools).filter(key => key.includes("_"));
-
   console.log(`[OTOV] 🔎 Found ${otovToolIds.length} tools with underscores (likely OTOV tools).`);
 
   for (const toolId of otovToolIds) {
@@ -65,16 +65,17 @@ Hooks.once("ready", () => {
       continue;
     }
 
-    if (typeof tool.identifier !== "string" && tool.identifier !== null) {
-      console.warn(`[OTOV] ⚠️ Tool '${toolId}' has an invalid identifier (type: ${typeof tool.identifier}). Resetting to null.`);
-      tool.identifier = null;
-    } else {
-      console.log(`[OTOV] ✅ Tool '${toolId}' has valid identifier:`, tool.identifier);
+    if (typeof tool.identifier !== "string") {
+      const fixedId = `dnd5e.tools.${toolId}`;
+      console.warn(`[OTOV] ⚠️ Tool '${toolId}' had invalid identifier (type: ${typeof tool.identifier}). Setting to '${fixedId}'.`);
+      tool.identifier = fixedId;
     }
+
+    console.log(`[OTOV] ✅ Tool '${toolId}' has valid identifier: '${tool.identifier}'`);
   }
 
   console.log("[OTOV] ✅ Custom tool integrity check complete.");
 
-  // ✅ In-game UI confirmation message (permanent)
+  // ✅ In-game UI confirmation message
   ui.notifications.info("✅ OTOV Custom Tools module loaded and active.", { permanent: true });
 });
