@@ -38,8 +38,8 @@ Hooks.once("init", () => {
       label,
       tools: [toolId]
     };
-    console.log(`[OTOV] Registered tool proficiency: ${label} (${toolId})`);
+    console.log(`[OTOV] 🧰 Registered tool proficiency: ${toolId} → "${label}"`);
   }
 
-  console.log("[OTOV] ✅ Tool proficiencies loaded.");
+  console.log("[OTOV] ✅ All OTOV tool proficiencies loaded.");
 });
