@@ -1,3 +1,4 @@
+// STEP 2: Register labels after tools exist
 Hooks.once("init", () => {
   console.log("[OTOV] 🖋️ Prefixing OTOV tool labels");
 
@@ -36,11 +37,19 @@ Hooks.once("init", () => {
   };
 
   for (const [id, label] of Object.entries(otovLabels)) {
-    if (CONFIG.DND5E.toolProficiencies[id]) {
+    // Register the proficiency entry if it doesn't exist
+    if (!CONFIG.DND5E.toolProficiencies[id]) {
+      CONFIG.DND5E.toolProficiencies[id] = {
+        label: `OTOV - ${label}`,
+        tools: [id]
+      };
+      console.log(`[OTOV] ✅ Created and labeled tool proficiency '${id}'`);
+    } else {
+      // Otherwise, just overwrite the label safely
       CONFIG.DND5E.toolProficiencies[id].label = `OTOV - ${label}`;
-      console.log(`[OTOV] ✏️ Renamed tool proficiency label for '${id}' to 'OTOV - ${label}'`);
+      console.log(`[OTOV] ✏️ Updated label for '${id}' → OTOV - ${label}`);
     }
   }
 
-  console.log("[OTOV] ✅ Tool label update complete.");
+  console.log("[OTOV] ✅ Tool proficiency labeling complete.");
 });
