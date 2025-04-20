@@ -38,7 +38,8 @@ Hooks.once("init", () => {
   for (const [toolId, ability] of Object.entries(otovTools)) {
     CONFIG.DND5E.tools[toolId] = {
       ability,
-      type: "otov"
+      type: "otov",
+      identifier: `dnd5e.tools.${toolId}`
     };
   }
 });
