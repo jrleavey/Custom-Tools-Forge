@@ -1,48 +1,51 @@
 Hooks.once("init", () => {
-  console.log("[OTOV] 🛠️ Registering OTOV Tools into CONFIG.DND5E.tools");
+  console.log("[OTOV] 🧰 Registering tool proficiencies in CONFIG.DND5E.toolProficiencies");
 
-  const otovTools = {
-    animalcarekit: "wis",
-    brewerssupplies: "wis",
-    calligrapherssupplies: "int",
-    cartographerstools: "int",
-    chemistrykit: "int",
-    climbinggear: "str",
-    cookingkit: "wis",
-    disguisekit: "cha",
-    explosiveskit: "int",
-    farmerstools: "wis",
-    fishingtackle: "wis",
-    forensickit: "int",
-    gunsmithtools: "dex",
-    hackingtools: "int",
-    herbalismkit: "wis",
-    jewelerstools: "dex",
-    leatherworkingtools: "dex",
-    mechanicstools: "int",
-    minerstools: "str",
-    navigatorstools: "int",
-    painterstools: "dex",
-    poisonerskit: "int",
-    potterstools: "int",
-    radiationdetector: "int",
-    scrungekit: "dex",
-    sewingkit: "dex",
-    signalbooster: "int",
-    smithstools: "str",
-    surveyorstools: "wis",
-    tinkerstools: "int",
-    trapperstools: "wis"
+  const otovToolProficiencies = {
+    animalcarekit: "Animal Care Kit",
+    brewerssupplies: "Brewer’s Supplies",
+    calligrapherssupplies: "Calligrapher’s Supplies",
+    cartographerstools: "Cartographer’s Tools",
+    chemistrykit: "Chemistry Kit",
+    climbinggear: "Climbing Gear",
+    cookingkit: "Cooking Kit",
+    disguisekit: "Disguise Kit",
+    explosiveskit: "Explosives Kit",
+    farmerstools: "Farmer’s Tools",
+    fishingtackle: "Fishing Tackle",
+    forensickit: "Forensic Kit",
+    gunsmithtools: "Gunsmith’s Tools",
+    hackingtools: "Hacking Tools",
+    herbalismkit: "Herbalism Kit",
+    jewelerstools: "Jeweler’s Tools",
+    leatherworkingtools: "Leatherworking Tools",
+    mechanicstools: "Mechanic’s Tools",
+    minerstools: "Miner’s Tools",
+    navigatorstools: "Navigator’s Tools",
+    painterstools: "Painter’s Tools",
+    poisonerskit: "Poisoner’s Kit",
+    potterstools: "Potter’s Tools",
+    radiationdetector: "Radiation Detector",
+    scrungekit: "Scrunge Kit",
+    sewingkit: "Sewing Kit",
+    signalbooster: "Signal Booster",
+    smithstools: "Smith’s Tools",
+    surveyorstools: "Surveyor’s Tools",
+    tinkerstools: "Tinker’s Tools",
+    trapperstools: "Trapper’s Tools"
   };
 
-  for (const [id, ability] of Object.entries(otovTools)) {
-    if (!CONFIG.DND5E.tools[id]) {
-      CONFIG.DND5E.tools[id] = { ability, id: "" }; // type removed
-      console.log(`[OTOV] ✅ Added tool '${id}' with ability '${ability}'`);
+  for (const [id, label] of Object.entries(otovToolProficiencies)) {
+    if (!CONFIG.DND5E.toolProficiencies[id]) {
+      CONFIG.DND5E.toolProficiencies[id] = {
+        label,
+        tools: [id]
+      };
+      console.log(`[OTOV] ✅ Added tool proficiency '${id}' (${label})`);
     } else {
-      console.warn(`[OTOV] ⚠️ Tool '${id}' already exists in CONFIG.DND5E.tools`);
+      console.warn(`[OTOV] ⚠️ Tool proficiency '${id}' already exists`);
     }
   }
 
-  console.log("[OTOV] ✅ OTOV Tools registration complete.");
+  console.log("[OTOV] ✅ Tool proficiency registration complete.");
 });
