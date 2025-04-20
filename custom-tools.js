@@ -1,20 +1,48 @@
 Hooks.once("init", () => {
-  console.log("[OTOV] Registering custom tools under 'Other' category.");
+  console.log("[OTOV] 🛠️ Registering OTOV Tools into CONFIG.DND5E.tools");
 
-  CONFIG.DND5E.tools.animalcarekit = { ability: "wis" };
-  CONFIG.DND5E.tools.chemistrykit = { ability: "int" };
-  CONFIG.DND5E.tools.climbinggear = { ability: "str" };
-  CONFIG.DND5E.tools.explosiveskit = { ability: "int" };
-  CONFIG.DND5E.tools.farmerstools = { ability: "wis" };
-  CONFIG.DND5E.tools.forensickit = { ability: "int" };
-  CONFIG.DND5E.tools.gunsmithtools = { ability: "dex" };
-  CONFIG.DND5E.tools.hackingtools = { ability: "int" };
-  CONFIG.DND5E.tools.mechanicstools = { ability: "int" };
-  CONFIG.DND5E.tools.radiationdetector = { ability: "int" };
-  CONFIG.DND5E.tools.scrungekit = { ability: "dex" };
-  CONFIG.DND5E.tools.signalbooster = { ability: "int" };
-  CONFIG.DND5E.tools.surveyorstools = { ability: "wis" };
-  CONFIG.DND5E.tools.trapperstools = { ability: "wis" };
+  const otovTools = {
+    animalcarekit: "wis",
+    brewerssupplies: "wis",
+    calligrapherssupplies: "int",
+    cartographerstools: "int",
+    chemistrykit: "int",
+    climbinggear: "str",
+    cookingkit: "wis",
+    disguisekit: "cha",
+    explosiveskit: "int",
+    farmerstools: "wis",
+    fishingtackle: "wis",
+    forensickit: "int",
+    gunsmithtools: "dex",
+    hackingtools: "int",
+    herbalismkit: "wis",
+    jewelerstools: "dex",
+    leatherworkingtools: "dex",
+    mechanicstools: "int",
+    minerstools: "str",
+    navigatorstools: "int",
+    painterstools: "dex",
+    poisonerskit: "int",
+    potterstools: "int",
+    radiationdetector: "int",
+    scrungekit: "dex",
+    sewingkit: "dex",
+    signalbooster: "int",
+    smithstools: "str",
+    surveyorstools: "wis",
+    tinkerstools: "int",
+    trapperstools: "wis"
+  };
 
-  console.log("[OTOV] ✅ Custom tools registered.");
+  for (const [id, ability] of Object.entries(otovTools)) {
+    if (!CONFIG.DND5E.tools[id]) {
+      CONFIG.DND5E.tools[id] = { ability, id: "" }; // type removed
+      console.log(`[OTOV] ✅ Added tool '${id}' with ability '${ability}'`);
+    } else {
+      console.warn(`[OTOV] ⚠️ Tool '${id}' already exists in CONFIG.DND5E.tools`);
+    }
+  }
+
+  console.log("[OTOV] ✅ OTOV Tools registration complete.");
 });
