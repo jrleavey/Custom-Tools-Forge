@@ -39,17 +39,29 @@ Hooks.once("init", () => {
     CONFIG.DND5E.tools[toolId] = {
       ability,
       type: "otov",
-      identifier: `dnd5e.tools.${toolId}` // Tidy5e-safe
+      identifier: `dnd5e.tools.${toolId}`
     };
+    console.log(`[OTOV] Registered tool: ${toolId} (ability: ${ability})`);
   }
 });
 
 Hooks.once("ready", () => {
-  // Patch anything missing identifier to prevent crashes
   for (const [key, tool] of Object.entries(CONFIG.DND5E.tools)) {
-    if (typeof tool?.identifier !== "string") {
-      console.warn(`[OTOV Tools] Auto-fixing missing identifier for: ${key}`);
+    if (typeof tool !== "object" || tool === null) {
+      console.error(`[OTOV] TOOL DEFINITION ERROR: CONFIG.DND5E.tools['${key}'] is not an object:`, tool);
+      CONFIG.DND5E.tools[key] = {
+        ability: "int",
+        type: "otov",
+        identifier: `dnd5e.tools.${key}`
+      };
+      continue;
+    }
+
+    if (typeof tool.identifier !== "string") {
+      console.warn(`[OTOV] Fixing invalid identifier on '${key}'`);
       tool.identifier = `dnd5e.tools.${key}`;
     }
   }
+
+  console.log(`[OTOV] Tool definitions validated.`);
 });
