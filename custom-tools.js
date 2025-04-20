@@ -38,16 +38,13 @@ Hooks.once("init", () => {
     trappers_tools: "wis"
   };
 
-for (const [toolId, ability] of Object.entries(otovTools)) {
-  const identifier = `dnd5e.tools.${toolId}`; // ✅ string identifier to prevent crash
-  CONFIG.DND5E.tools[toolId] = {
-    ability,
-    type: "otov",
-    identifier
-  };
-  console.log(`[OTOV] ✅ Registered tool: '${toolId}' → Ability: ${ability}, Type: 'otov', Identifier: '${identifier}'`);
-}
-
+  for (const [toolId, ability] of Object.entries(otovTools)) {
+    CONFIG.DND5E.tools[toolId] = {
+      ability,
+      type: "otov"
+    };
+    console.log(`[OTOV] ✅ Registered tool: '${toolId}' → Ability: ${ability}, Type: 'otov'`);
+  }
 
   console.log(`[OTOV] 🧰 Total custom tools registered: ${Object.keys(otovTools).length}`);
 });
@@ -66,17 +63,14 @@ Hooks.once("ready", () => {
       continue;
     }
 
-    if (typeof tool.identifier !== "string") {
-      const fixedId = `dnd5e.tools.${toolId}`;
-      console.warn(`[OTOV] ⚠️ Tool '${toolId}' had invalid identifier (type: ${typeof tool.identifier}). Setting to '${fixedId}'.`);
-      tool.identifier = fixedId;
+    if (tool.hasOwnProperty("identifier")) {
+      delete tool.identifier;
+      console.warn(`[OTOV] 🧼 Removed invalid identifier from tool '${toolId}'`);
     }
 
-    console.log(`[OTOV] ✅ Tool '${toolId}' has valid identifier: '${tool.identifier}'`);
+    console.log(`[OTOV] ✅ Tool '${toolId}' definition is clean.`);
   }
 
   console.log("[OTOV] ✅ Custom tool integrity check complete.");
-
-  // ✅ In-game UI confirmation message
   ui.notifications.info("✅ OTOV Custom Tools module loaded and active.", { permanent: true });
 });
